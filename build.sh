@@ -1,8 +1,24 @@
 #!/bin/bash
 #
-# palen1x build script
-# Made with <3 https://github.com/palera1n/palen1x
-# Modified from https://github.com/asineth0/checkn1x & https://github.com/raspberryenvoie/odysseyn1x :3
+# Achilles build script
+# Made with <3 https://github.com/Tracker-Friendly/Achilles
+# Modified from https://github.com/asineth0/checkn1x, https://github.com/raspberryenvoie/odysseyn1x and https://github.com/palera1n/palera1x                               
+
+# ___            .--,-``-.     
+#/  .\          /   /     '.   
+#\  ; |        / ../        ;  
+# `--"   ,---,.\ ``\  .`-    ' 
+#      ,'  .' | \___\/   \   : 
+#    ,---.'   ,      \   :   | 
+#    |   |    |       |  |   ; 
+#    :   :  .'        .  `   . 
+#    :   |.'     ___ /   :   | 
+# ___`---'      /   /\   /   : 
+#/  .\         / ,,/  ',-    . 
+#\  ; |        \ ''\        ;  
+# `--"          \   \     .'   
+#                `--`-,,-'     
+                              
 
 # Exit if user isn't root
 [ "$(id -u)" -ne 0 ] && {
@@ -15,17 +31,23 @@ BLUE="$(tput setaf 6)"
 NORMAL="$(tput sgr0)"
 cat << EOF
 
-           Welcome to                 ${GREEN}&&&%##%%(${NORMAL}
-                               ${GREEN}&&&&&&&&&&&%#&&%%%${NORMAL}
-                        ${GREEN}&&&&&&&&&&&&&&&&&&%%#&&&%%%${NORMAL}
-                ${BLUE}&&&&&&&&${NORMAL}#############${GREEN}&&&%%&%%&&&&%%%${NORMAL}
-         ${BLUE}%%%%%%%%%%%%&&&${NORMAL}#  ${BLUE}palen1x${NORMAL}  #${GREEN}%&&&&%%%%%%%%%%%%${NORMAL}
-     ${BLUE}#######((((###%%%%%${NORMAL}#############${GREEN}&%%%%%%%${NORMAL}
-     ${BLUE}######/     ########%%%%&&&&&&&%%${NORMAL}
-      ${BLUE}((((((((((((######%%%%%%%${NORMAL}
-       ${BLUE}(((((((((#####%%*${NORMAL}
-        ${BLUE}/(((((##${NORMAL}                  build script
-        
+                                                                                     
+                                                                                     
+      ___                  ,---,               ,--,    ,--,                          
+  /  /   \               ,--.' |      ,--,   .--.`|  ,--.`|                          
+ /  /     \              |  |  |    ,--.'|   |  | |  |  | |                          
+|  /       \             |  |  |    |  |,    |  | |  |  | |               .--.--.    
+|  |   /\   \     ,---.  |  |  |,--.`--'     |  | |  |  | |      ,---.   /  /    '   
+|  |  | /\   \   /     \ |  |  '   |/--//|   |  | |  |  | |     /    /\ |  |  /`\/   
+|  |  |/  \   \ /    / / |  |   /\ ||  | |   |  | |  |  | |    /    / .||  |  |_     
+|  |  | \  \ /'|    / /  '  |  | | ||  | |   |  | |__|  | |__ /    / /|| \  \    `\  
+|  |  |  '--'  |   | |__ |  |  | | ||  | |   |  |    |  |    ||   | | ||  `----\   \ 
+|  |  |        |   | \./||  |  |_:,'|  | |   |  |    |  |    ||   |  /   /  /\--\  / 
+|  | ,/        |   |    ||  | ,'    |  | |   |  |   /|  |   / |   |  |/|\--`\     /  
+`----           \   \  / `--''      |  | |    ---.-.  ---.-.   \   \  /   `--'---'   
+                 `----'              --- /                      `----'               
+                                                                                     
+                                 JAILBREAKING TOOL
 EOF
 # Ask for the version and architecture if variables are empty
 while [ -z "$VERSION" ]; do
@@ -44,20 +66,16 @@ until [ "$ARCH" = 'amd64' ] || [ "$ARCH" = 'i686' ] || [ "$ARCH" = 'aarch64' ]; 
     [ -z "$input_arch" ] && ARCH='amd64'
 done
 
-# Install dependencies to build palen1x
-apt-get update
-apt-get install -y --no-install-recommends wget debootstrap mtools xorriso ca-certificates curl libusb-1.0-0-dev gcc make gzip xz-utils unzip libc6-dev
+# Install dependencies to build Achilles
+sudo pacman -Sy wget debootstrap mtools xorriso ca-certificates curl usbutils gcc make gzip xz unzip
 
 # Get proper files for amd64 or i686
 if [ "$ARCH" = 'amd64' ]; then
     ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.1-x86_64.tar.gz'
-    PALERA1N='https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/palera1n-linux-x86_64'
 elif [ "$ARCH" = 'i686' ]; then
     ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86/alpine-minirootfs-3.17.1-x86.tar.gz'
-    PALERA1N='https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/palera1n-linux-x86'
 elif [ "$ARCH" = 'aarch64' ]; then
     ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/aarch64/alpine-minirootfs-3.17.1-aarch64.tar.gz'
-    PALERA1N='https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/palera1n-linux-arm64'
 fi
 
 # Clean up previous attempts
@@ -102,26 +120,14 @@ kernel/drivers/hid/hid-apple.ko
 kernel/net/ipv4
 !
 chroot rootfs /usr/bin/env PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin \
-	/sbin/mkinitfs -F "palen1x" -k -t /tmp -q $(ls rootfs/lib/modules)
+	/sbin/mkinitfs -F "Achilles" -k -t /tmp -q $(ls rootfs/lib/modules)
 rm -rfv rootfs/lib/modules
 mv -v rootfs/tmp/lib/modules rootfs/lib
 find rootfs/lib/modules/* -type f -name "*.ko" -exec strip -v --strip-unneeded {} \; -exec xz --x86 -v9eT0 \;
 depmod -b rootfs $(ls rootfs/lib/modules)
 
-# Echo TUI configurations
-echo 'palen1x' > rootfs/etc/hostname
-echo "PATH=$PATH:$HOME/.local/bin" > rootfs/root/.bashrc # d
-echo "export PALEN1X_VERSION='$VERSION'" > rootfs/root/.bashrc
-echo '/usr/bin/palen1x_menu' >> rootfs/root/.bashrc
-echo "Rootful" > rootfs/usr/bin/.jbtype
-echo "" > rootfs/usr/bin/.args
-
 # Unmount fs
 umount -v rootfs/{dev,sys,proc}
-
-# Fetch palera1n-c
-curl -Lo rootfs/usr/bin/palera1n "$PALERA1N"
-chmod +x rootfs/usr/bin/palera1n
 
 # Copy files
 cp -av ../inittab rootfs/etc
@@ -134,7 +140,7 @@ ln -sv ../../etc/terminfo rootfs/usr/share/terminfo # fix ncurses
 cp -av rootfs/boot/vmlinuz-lts iso/boot/vmlinuz
 cat << ! > iso/boot/grub/grub.cfg
 insmod all_video
-echo 'palen1x $VERSION'
+echo 'Achilles $VERSION'
 linux /boot/vmlinuz quiet loglevel=3
 initrd /boot/initramfs.xz
 boot
@@ -147,4 +153,4 @@ find . | cpio -oH newc | xz -C crc32 --x86 -vz9eT$(nproc --all) > ../iso/boot/in
 popd
 
 # ISO creation
-grub-mkrescue -o "c-palen1x-$VERSION-$ARCH.iso" iso --compress=xz
+grub-mkrescue -o "Achilles-$VERSION-$ARCH.iso" iso --compress=xz
