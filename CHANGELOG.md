@@ -1,12 +1,12 @@
 # Changelog
 
-#Achilles
+# Achilles
 
-##0.1.0
+## 0.1.0
 - Started development of Achilles
 
 
-#Palen1x
+# Palen1x
 
 ## 1.0.7
 - Updated to palera1n-c beta 4
