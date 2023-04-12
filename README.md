@@ -30,7 +30,7 @@
 # Building Achilles
 To change the version of Achilles, either change `version` file, or manually specify it with `./build.sh`.
 
-Execute these commands on a Arch-based system.
+Execute these commands on a Debian-based system (Github Actions support Arch Linux eta).
 
 ```sh
 git clone https://github.com/Tracker-Friendly/Achilles.git
