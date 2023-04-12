@@ -2,6 +2,9 @@
 
 # Achilles
 
+## 0.1.1
+- Added (hopefully) wifi support
+
 ## 0.1.0
 - Started development of Achilles
 

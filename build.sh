@@ -109,6 +109,7 @@ rc-update add hwdrivers
 rc-update add udev
 rc-update add udev-trigger
 rc-update add udev-settle
+rc-update add iwd
 !
 
 # kernel modules
