@@ -4,20 +4,20 @@
 # Made with <3 https://github.com/Tracker-Friendly/Achilles
 # Modified from https://github.com/asineth0/checkn1x, https://github.com/raspberryenvoie/odysseyn1x and https://github.com/palera1n/palera1x                               
 
-# ___            .--,-``-.     
-#/  .\          /   /     '.   
-#\  ; |        / ../        ;  
-# `--"   ,---,.\ ``\  .`-    ' 
-#      ,'  .' | \___\/   \   : 
-#    ,---.'   ,      \   :   | 
-#    |   |    |       |  |   ; 
-#    :   :  .'        .  `   . 
-#    :   |.'     ___ /   :   | 
-# ___`---'      /   /\   /   : 
-#/  .\         / ,,/  ',-    . 
-#\  ; |        \ ''\        ;  
-# `--"          \   \     .'   
-#                `--`-,,-'     
+# ___            .-- ----.     
+#/  |\          /   /     \    
+#\  | |        /   /   .   \   
+# `--'   .---..\   \  / \   \ 
+#      .'  .' | \___\/   \   | 
+#    .---.'   ,      \   |   | 
+#    |   |    |       |  |   | 
+#    |   |  .'        |  |   | 
+#    |   |.'     ___ /   |   | 
+# ___`---       /   /\   /   | 
+#/  |\         /   /  \ /    | 
+#\  | |        \   \   '    /  
+# `--'          \   \      /   
+#                '--- ----'    
                               
 
 # Exit if user isn't root
@@ -102,7 +102,7 @@ sleep 2
 cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin /bin/sh
 apk update
 apk upgrade
-apk add bash alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2
+apk add bash alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2 networkmanager
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc
 rc-update add hwdrivers
