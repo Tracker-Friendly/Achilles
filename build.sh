@@ -102,7 +102,7 @@ sleep 2
 cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin /bin/sh
 apk update
 apk upgrade
-apk add bash alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd ethtool
+apk add bash alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd ethtool ifupdown
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc
 rc-update add hwdrivers
