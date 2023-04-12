@@ -112,22 +112,6 @@ rc-update add udev-settle
 rc-update add iwd
 !
 
-# kernel modules
-cat << ! > rootfs/etc/mkinitfs/features.d/palen1x.modules
-kernel/drivers/usb/host
-kernel/drivers/hid/usbhid
-kernel/drivers/hid/hid-generic.ko
-kernel/drivers/hid/hid-cherry.ko
-kernel/drivers/hid/hid-apple.ko
-kernel/net/ipv4
-!
-chroot rootfs /usr/bin/env PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin \
-	/sbin/mkinitfs -F "Achilles" -k -t /tmp -q $(ls rootfs/lib/modules)
-rm -rfv rootfs/lib/modules
-mv -v rootfs/tmp/lib/modules rootfs/lib
-find rootfs/lib/modules/* -type f -name "*.ko" -exec strip -v --strip-unneeded {} \; -exec xz --x86 -v9eT0 \;
-depmod -b rootfs $(ls rootfs/lib/modules)
-
 # Unmount fs
 umount -v rootfs/{dev,sys,proc}
 
