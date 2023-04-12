@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# Check if eth0 exists
+if [ ! -e "/sys/class/net/eth0" ]; then
+  # Prompt user for interface name
+  read -p "Enter network interface name: " iface
+else
+  iface="eth0"
+fi
+
+#!/bin/sh
+
+# Prompt user for network configuration mode
+if [ -z "$is_static" ]; then
+  read -p "Do you want to use DHCP or set a static IP address? (dhcp/static): " mode
+  if [ "$mode" = "dhcp" ]; then
+    is_static="false"
+  else
+    is_static="true"
+  fi
+fi
+
+# Check if eth0 exists
+if [ ! -e "/sys/class/net/eth0" ]; then
+  # Prompt user for interface name
+  read -p "Enter network interface name: " iface
+else
+  iface="eth0"
+fi
+
+# Prompt for DNS Server
+if [ -z "$dns_server" ]; then
+  read -p "Enter DNS server address (Enter 1.1.1.1 if unsure): " dns_server
+fi
+
+# Changes files
+if [ "$is_static" = "dhcp" ]; then
+  # Write DHCP configuration to /etc/network/interfaces
+  cat << EOF > /etc/network/interfaces
+  auto $iface
+  iface $iface inet dhcp
+  dns-nameservers $dns_server
+EOF
+else
+  # Prompt user for network configuration values
+  if [ -z "$ip_addr" ]; then
+    read -p "Enter IP address: " ip_addr
+  fi 
+  if [ -z "$subnet_mask" ]; then
+    read -p "Enter subnet mask: " subnet_mask
+  fi
+  if [ -z "$gateway_addr" ]; then
+    read -p "Enter gateway address: " gateway_addr
+  fi
+  # Write static IP configuration to /etc/network/interfaces
+  cat << EOF > /etc/network/interfaces
+  auto $iface
+  iface $iface inet static
+    address $ip_addr
+    netmask $subnet_mask
+    gateway $gateway_addr
+    dns-nameservers $dns_server
+EOF
+fi
+
+# Restart networking service
+service networking restart
+
