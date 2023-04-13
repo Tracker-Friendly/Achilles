@@ -20,7 +20,7 @@
 
 - Checkm8 based exploits (checkra1n, palera1n, gaster) will NEVER work in VMs. Don't bother asking.
 
-- This distro's purpose is to make jailbreaking easier and more intuitive(with GUI) to use within a stripped down artix distribution.
+- This distro's purpose is to make jailbreaking easier and more intuitive (with a easy to use GUI) within a stripped down alpine distribution.
 
 # Information
 **Make an [iCloud/iTunes backup](https://support.apple.com/en-us/HT203977) before using, so that you can go back if something goes wrong**.
