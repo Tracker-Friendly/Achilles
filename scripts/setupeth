@@ -34,7 +34,7 @@ if [ -z "$dns_server" ]; then
 fi
 
 # Changes files
-if [ "$is_static" = "dhcp" ]; then
+if [ "$is_static" = "false" ]; then
   # Write DHCP configuration to /etc/network/interfaces
   cat << EOF > /etc/network/interfaces
   auto $iface
