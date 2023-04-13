@@ -4,7 +4,7 @@
 <br>
 <p align="center">
 <strong>This is Achilles, a Linux Distro packed full of utilities for you to jailbreak with.</a></strong><br>
-    It aims to be easy to use, have a GUI interfact and support 32 and 64 bit CPUs.
+    It aims to be easy to use, have an easy to use GUI interface and support 32 and 64 bit CPUs.
 </p>
 <p align="center">
     <a href="#Information">Information</a> •
