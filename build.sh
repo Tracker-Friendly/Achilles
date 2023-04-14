@@ -82,7 +82,6 @@ cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbi
 apk update
 apk upgrade
 apk add bash alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2
-apk add openbox xterm terminus-font xf86-input-libinput eudev mesa-dri-gallium
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc
 rc-update add hwdrivers
