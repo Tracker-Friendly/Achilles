@@ -1,6 +1,15 @@
 #!/bin/sh
 
-
+if [ "$EUID" -ne 0 ]
+  then
+  message="Please run as root!"
+  tempfile=$(mktemp)
+  echo "$message" > $tempfile
+  dialog --title "/!\\" --textbox $tempfile 0 0
+  rm -rf $tempfile
+  clear
+  exit
+fi
 
 # Define the arrays
 iface=$(ls /sys/class/net | grep -v -e 'eth' -e 'lo' | sed 's/\x1B\[[0-9;]*[a-zA-Z]//g')
@@ -31,16 +40,32 @@ fi
 
 # Display the password prompt
 password=$(dialog --clear --title "Enter Password" \
-    --insecure --passwordbox "Enter the password for $selected_option:" 0 0 3>&1 1>&2 2>&3)
+    --insecure --passwordbox "Enter the password for $selected_option (if open leave empty):" 0 0 3>&1 1>&2 2>&3)
 
 if [ $? -eq 1 ]; then
     clear && exit
 fi
 
-# Display the entered password
-dialog --clear --title "Connecting..." \
-    --msgbox "Please wait as we connect to the network..." 0 0
-sudo iwctl station $iface connect $selected_option -p $password
+
+echo $iface > /tmp/logiwd
+echo $selected_option >> /tmp/logiwd
+echo $password >> /tmp/logiwd
+iwctl station $iface disconnect
+if [ "$password" = "" ]; then
+  echo "open" >> /tmp/logiwd
+  iwctl station $iface connect $selected_option
+else
+  echo "psk" >> /tmp/logiwd
+  iwctl station $iface connect $selected_option -P $password
+fi
+
+if [ $? -eq 1 ]; then
+    dialog --clear --title "Connection Failed!" \
+      --msgbox "You probably entered the password wrong, or tried to connect to 8021x." 0 0
+else
+  dialog --clear --title "Connected" \
+      --msgbox "You have connect to $selected_option" 0 0
+fi
 
 if [ $? -eq 1 ]; then
     clear && exit

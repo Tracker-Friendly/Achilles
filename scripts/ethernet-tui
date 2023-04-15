@@ -1,5 +1,16 @@
 #!/bin/sh
 
+if [ "$EUID" -ne 0 ]
+  then
+  message="Please run as root!"
+  tempfile=$(mktemp)
+  echo "$message" > $tempfile
+  dialog --title "/!\\" --textbox $tempfile 0 0
+  rm -rf $tempfile
+  clear
+  exit
+fi
+
 function clear_and_exit {
   if [ $? -eq 1 ]; then
       clear && exit
