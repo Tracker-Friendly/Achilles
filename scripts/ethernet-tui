@@ -1,18 +1,26 @@
 #!/bin/sh
 
+function clear_and_exit {
+  if [ $? -eq 1 ]; then
+      clear && exit
+  fi
+}
+
 # Check if eth0 exists
-if [ ! -e "/sys/class/net/eth0" ]; then
-  # Prompt user for interface name
-  read -p "Enter network interface name: " iface
-else
-  iface="eth0"
+if [ -z "$iface" ]; then
+  if [ ! -e "/sys/class/net/eth0" ]; then
+    # Prompt user for interface name
+    iface=$(dialog --stdout --inputbox "Enter network interface name:" 0 0)
+  else
+    iface="eth0"
+  fi
 fi
 
-#!/bin/sh
+clear_and_exit
 
 # Prompt user for network configuration mode
 if [ -z "$is_static" ]; then
-  read -p "Do you want to use DHCP or set a static IP address? (dhcp/static): " mode
+  mode=$(dialog --stdout --inputbox "Do you want to use DHCP or set a static IP address? (dhcp/static):" 0 0)
   if [ "$mode" = "dhcp" ]; then
     is_static="false"
   else
@@ -20,18 +28,14 @@ if [ -z "$is_static" ]; then
   fi
 fi
 
-# Check if eth0 exists
-if [ ! -e "/sys/class/net/eth0" ]; then
-  # Prompt user for interface name
-  read -p "Enter network interface name: " iface
-else
-  iface="eth0"
-fi
+clear_and_exit
 
 # Prompt for DNS Server
 if [ -z "$dns_server" ]; then
-  read -p "Enter DNS server address (Enter 1.1.1.1 if unsure): " dns_server
+  dns_server=$(dialog --stdout --inputbox "Enter DNS server address (Enter 1.1.1.1 if unsure):" 0 0)
 fi
+
+clear_and_exit
 
 # Changes files
 if [ "$is_static" = "false" ]; then
@@ -44,14 +48,17 @@ EOF
 else
   # Prompt user for network configuration values
   if [ -z "$ip_addr" ]; then
-    read -p "Enter IP address: " ip_addr
+    ip_addr=$(dialog --stdout --inputbox "Enter IP address:" 0 0)
   fi 
+  clear_and_exit
   if [ -z "$subnet_mask" ]; then
-    read -p "Enter subnet mask: " subnet_mask
+    subnet_mask=$(dialog --stdout --inputbox "Enter subnet mask:" 0 0)
   fi
+  clear_and_exit
   if [ -z "$gateway_addr" ]; then
-    read -p "Enter gateway address: " gateway_addr
+    gateway_addr=$(dialog --stdout --inputbox "Enter gateway address:" 0 0)
   fi
+  clear_and_exit
   # Write static IP configuration to /etc/network/interfaces
   cat << EOF > /etc/network/interfaces
   auto $iface

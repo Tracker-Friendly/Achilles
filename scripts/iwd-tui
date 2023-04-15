@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Define the arrays
+array1=("Option 1" "Option 2" "Option 3" "Option 4" "Option 5")
+array2=("Value 1" "Value 2" "Value 3" "Value 4" "Value 5")
+
+# Define the option list for --menu dynamically based on the arrays
+option_list=()
+for i in ${!array1[@]}; do
+  option_list+=("${array1[$i]}" "${array2[$i]}")
+done
+
+# Define the selected option
+selected_option=$(dialog --clear --title "Select an Option" \
+    --menu "Choose one of the following options:" 0 0 0 \
+    "${option_list[@]}" 3>&1 1>&2 2>&3)
+
+if [ $? -eq 1 ]; then
+    clear && exit
+fi
+
+# Display the password prompt
+password=$(dialog --clear --title "Enter Password" \
+    --insecure --passwordbox "Enter the password for $selected_option:" 0 0 3>&1 1>&2 2>&3)
+
+if [ $? -eq 1 ]; then
+    clear && exit
+fi
+
+# Display the entered password
+dialog --clear --title "Entered Password" \
+    --msgbox "You entered the password: $password" 0 0
+
+if [ $? -eq 1 ]; then
+    clear && exit
+fi
+
+clear
