@@ -1,18 +1,8 @@
 #!/bin/sh
 
-
-
 # Define the arrays
-iface=$(ls /sys/class/net | grep -v -e 'eth' -e 'lo' | sed 's/\x1B\[[0-9;]*[a-zA-Z]//g')
-array1=()
-while IFS= read -r line; do
-    array1+=("$line")
-done < <(iwctl station $iface get-networks | sed -e '1,4d' -e 's/\(open\|psk\|8021x\).*//' -e 's/^[[:space:]]*//' -e 's/\x1B\[.\{1,3\}//g' -e 's/ *0m>//g' -e 's/ *//g')
-number="Network"
-for i in ${!array1[@]}; do
-  array2+=($number)
-done
-
+array1=("Option 1" "Option 2" "Option 3" "Option 4" "Option 5")
+array2=("Value 1" "Value 2" "Value 3" "Value 4" "Value 5")
 
 # Define the option list for --menu dynamically based on the arrays
 option_list=()
@@ -38,9 +28,8 @@ if [ $? -eq 1 ]; then
 fi
 
 # Display the entered password
-dialog --clear --title "Connecting..." \
-    --msgbox "Please wait as we connect to the network..." 0 0
-sudo iwctl station $iface connect $selected_option -p $password
+dialog --clear --title "Entered Password" \
+    --msgbox "You entered the password: $password" 0 0
 
 if [ $? -eq 1 ]; then
     clear && exit

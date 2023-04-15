@@ -101,6 +101,7 @@ chmod -v 755 rootfs/usr/local/bin/*
 ln -sv sbin/init rootfs/init
 ln -sv ../../etc/terminfo rootfs/usr/share/terminfo # fix ncurses
 cp -v ../scripts/setupeth rootfs/usr/bin
+cp -v ../configs rootfs/
 
 # Boot config
 cp -av rootfs/boot/vmlinuz-lts iso/boot/vmlinuz

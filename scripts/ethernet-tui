@@ -9,8 +9,10 @@ function clear_and_exit {
 # Check if eth0 exists
 if [ -z "$iface" ]; then
   if [ ! -e "/sys/class/net/eth0" ]; then
+    msg="Enter network interface name out of this list (likley eth[number]): \n \n"
+    msg+=$(ls /sys/class/net/ | sed 's/\x1B\[[0-9;]*[mK]//g')
     # Prompt user for interface name
-    iface=$(dialog --stdout --inputbox "Enter network interface name:" 0 0)
+    iface=$(dialog --stdout --inputbox "$msg" 0 0)
   else
     iface="eth0"
   fi
