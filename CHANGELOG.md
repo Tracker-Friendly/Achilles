@@ -2,6 +2,9 @@
 
 # Achilles
 
+## 0.1.1-1
+- Added wifi TUI
+
 ## 0.1.1
 - Added (hopefully) wifi support
 
