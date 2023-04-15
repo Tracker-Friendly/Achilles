@@ -1,12 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$EUID" -ne 0 ]
   then
-  message="Please run as root!"
-  tempfile=$(mktemp)
-  echo "$message" > $tempfile
-  dialog --title "/!\\" --textbox $tempfile 0 0
-  rm -rf $tempfile
+  dialog --clear --title "Warning!" \
+        --msgbox "Please run as root!" 0 0
   clear
   exit
 fi
@@ -22,6 +19,13 @@ for i in ${!array1[@]}; do
   array2+=($number)
 done
 
+if [ "$iface" = "" ]
+  then
+  msg="Enter network interface name out of this list (likley wlan[number] or wlp*): \n \n"
+  msg+=$(ls /sys/class/net/ | sed 's/\x1B\[[0-9;]*[mK]//g')
+  # Prompt user for interface name
+  iface=$(dialog --stdout --inputbox "$msg" 0 0)
+fi
 
 # Define the option list for --menu dynamically based on the arrays
 option_list=()
