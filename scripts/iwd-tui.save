@@ -1,0 +1,54 @@
+#!/bin/sh
+
+if [ "$EUID" -ne 0 ]
+  then
+  message="Please run as root!"
+  tempfile=$(mktemp)
+  echo "$message" > $tempfile
+  dialog --title "/!\\" --textbox $tempfile 0 0
+  rm -rf $tempfile
+  clear
+  exit
+fi
+
+# Define the arrays
+iface=$(ls /sys/class/net | grep -v -e 'eth' -e 'lo' | sed 's/\x1B\[[0-9;]*[a-zA-Z]//g')
+array1=()
+while IFS= read -r line; do
+    array1+=("$line")
+done < <(iwctl station $iface get-networks | sed -e '1,4d' -e 's/\(open\|psk\|8021x\).*//' -e 's/^[[:space:]]*//' -e 's/\x1B\[.\{1,3\}//g' -e 's/ *0m>//g' -e 's/ *//g')
+number="Network"
+for i in ${!array1[@]}; do
+  array2+=($number)
+done
+
+
+# Define the option list for --menu dynamically based on the arrays
+option_list=()
+for i in ${!array1[@]}; do
+  option_list+=("${array1[$i]}" "${array2[$i]}")
+done
+
+# Define the selected option
+selected_option=$(dialog --clear --title "Select an Option" \
+    --menu "Choose one of the following options:" 0 0 0 \
+    "${option_list[@]}" 3>&1 1>&2 2>&3)
+
+if [ $? -eq 1 ]; then
+    clear && exit
+fi
+
+# Display the password prompt
+password=$(dialog --clear --title "Enter Password" \
+    --insecure --passwordbox "Enter the password for $selected_option:" 0 0 3>&1 1>&2 2>&3)
+
+if [ $? -eq 1 ]; then
+    clear && exit
+fi
+
+
+if [ $? -eq 1 ]; then
+    clear && exit
+fi
+
+clear
