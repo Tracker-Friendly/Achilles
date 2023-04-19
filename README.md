@@ -4,7 +4,7 @@
 <br>
 <p align="center">
 <strong>This is Achilles, a Linux Distro packed full of utilities for you to jailbreak with.</a></strong><br>
-    It aims to be easy to use, have an easy to use GUI interface and support 32 and 64 bit CPUs.
+    It aims to be easy to use, have an easy to use TUI interface and support 32 and 64 bit CPUs.
 </p>
 <p align="center">
     <a href="#Information">Information</a> •
@@ -16,11 +16,11 @@
 
 -------
 # Warnings
-- We are NOT responsible for any data loss. The user of this distro accepts responsibility should something happen to their device. While nothing should happen, jailbreaking has risks in itself. If your device is stuck in recovery, please run `Exit Recovery Mode` in `the GUI`.
+- We are NOT responsible for any data loss. The user of this distro accepts responsibility should something happen to their device. While nothing should happen, jailbreaking has risks in itself. If your device is stuck in recovery, please run `Exit Recovery Mode` in `the TUI`.
 
 - Checkm8 based exploits (checkra1n, palera1n, gaster) will NEVER work in VMs. Don't bother asking.
 
-- This distro's purpose is to make jailbreaking easier and more intuitive (with a easy to use GUI) within a stripped down alpine distribution.
+- This distro's purpose is to make jailbreaking easier and more intuitive (with a easy to use TUI) within a stripped down alpine distribution.
 
 # Information
 **Make an [iCloud/iTunes backup](https://support.apple.com/en-us/HT203977) before using, so that you can go back if something goes wrong**.
