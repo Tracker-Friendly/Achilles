@@ -45,8 +45,12 @@ until [ "$ARCH" = 'amd64' ] || [ "$ARCH" = 'i686' ] || [ "$ARCH" = 'aarch64' ]; 
 done
 
 # Install dependencies to build Achilles
-apt-get update
-apt-get install -y --no-install-recommends wget debootstrap mtools xorriso ca-certificates curl libusb-1.0-0-dev gcc make gzip xz-utils unzip libc6-dev
+if [[ $(uname -r | grep arch) ]]; then
+  sudo pacman -S --needed wget debootstrap mtools xorriso ca-certificates curl usbutils gcc make gzip unzip
+else
+  apt-get update
+  apt-get install -y --no-install-recommends wget debootstrap mtools xorriso ca-certificates curl libusb-1.0-0-dev gcc make gzip xz-utils unzip libc6-dev
+fi
 
 # Get proper files for amd64 or i686
 if [ "$ARCH" = 'amd64' ]; then
