@@ -81,6 +81,11 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing
 !
 
 sleep 2
+
+wget https://static.palera.in/deps/gaster-Linux.zip
+unzip gaster-Linux.zip
+cp gaster ../scripts
+
 # ROOTFS packages & services
 cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin /bin/sh
 apk update

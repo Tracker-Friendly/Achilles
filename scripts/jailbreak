@@ -1,0 +1,13 @@
+#!/bin/bash
+if [[ $(ideviceinfo | grep "ERROR: No device found!") ]]; then 
+  dialog --clear --title "Warning!" \
+        --msgbox "No iDevice found! Cannot continue..." 0 0
+else
+  dialog --clear --title "Done" \
+        --msgbox "Picked up iDevice, retreiving info..." 0 0
+  version=$(ideviceinfo | grep ProductVersion | sed 's/ProductVersion: //')
+  if [ $(ideviceinfo | grep PasswordProtected: | sed 's/PasswordProtected: //') = "true" ]; then
+
+  fi
+fi
+
