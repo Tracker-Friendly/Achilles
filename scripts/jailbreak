@@ -31,32 +31,10 @@ else
             --msgbox "You denied the dialog... Please unplug your phone and try again." 0 0
       else
         dialog --clear --title "Error!" \
-          --msgbox "You are too ugly.    else
-      if [ $(ideviceinfo | grep PasswordProtected | sed 's/PasswordProtected: //') = "true" ]; then
-        dialog --clear --title "Error!" \
-          --msgbox "Please unlock your iDevice!" 0 0
-      else
-        break
-      fi
-    fi
-  done
-
-  while true; do
-    if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: Pairing dialog response pending (-19)"; then
-      dialog --clear --title "Error!" \
-          --msgbox "Please press trust on the dialog!" 0 0
-    else
-      if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: User denied pairing (-18)"; then
-        dialog --clear --title "Error!" \
-            --msgbox "You denied the dialog... Please unplug your phone and try again." 0 0
-      else
-        dialog --clear --title "Error!" \
-          --msgbox "You are too ugly." 0 0
-        break
+          --msgbox "You are too ugly."
       fi
     fi
   done
 fi
-
 clear 
 exit
