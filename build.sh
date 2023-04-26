@@ -107,11 +107,10 @@ umount -v rootfs/{dev,sys,proc}
 # Copy files
 cp -av ../inittab rootfs/etc
 cp -v ../scripts/* rootfs/usr/bin
-chmod -v 755 rootfs/usr/local/bin/*
+chmod -v 755 rootfs/usr/bin/*
 ln -sv sbin/init rootfs/init
 ln -sv ../../etc/terminfo rootfs/usr/share/terminfo # fix ncurses
-cp -v ../scripts/setupeth rootfs/usr/bin
-cp -v ../configs rootfs/
+cp -vr ../configs rootfs/
 rm /root/packages
 
 # Boot config
