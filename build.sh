@@ -90,7 +90,7 @@ cp gaster ../scripts
 cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin /bin/sh
 apk update
 apk upgrade
-cat /root/packages
+cat /rootfs/packages
 apk add $(cat /root/packages)
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc

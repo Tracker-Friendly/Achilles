@@ -1,13 +1,62 @@
 #!/bin/bash
 if [[ $(ideviceinfo | grep "ERROR: No device found!") ]]; then 
-  dialog --clear --title "Warning!" \
-        --msgbox "No iDevice found! Cannot continue..." 0 0
+  dialog --clear --title "Error!" \
+      --msgbox "No iDevice found! Cannot continue..." 0 0
+  clear
+  exit
 else
-  dialog --clear --title "Done" \
-        --msgbox "Picked up iDevice, retreiving info..." 0 0
-  version=$(ideviceinfo | grep ProductVersion | sed 's/ProductVersion: //')
-  if [ $(ideviceinfo | grep PasswordProtected: | sed 's/PasswordProtected: //') = "true" ]; then
+  dialog --clear --title "..." \
+      --msgbox "Picked up iDevice, retreiving info..." 0 0
+  while true; do
+    if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: Password protected (-17)"; then
+      dialog --clear --title "Error!" \
+          --msgbox "Please unlock your iDevice!" 0 0
+    else
+      if [ $(ideviceinfo | grep PasswordProtected | sed 's/PasswordProtected: //') = "true" ]; then 
+        dialog --clear --title "Error!" \
+          --msgbox "Please unlock your iDevice!" 0 0
+      else
+        break
+      fi
+    fi
+  done
 
-  fi
+  while true; do
+    if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: Pairing dialog response pending (-19)"; then
+      dialog --clear --title "Error!" \
+          --msgbox "Please press trust on the dialog!" 0 0
+    else
+      if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: User denied pairing (-18)"; then
+        dialog --clear --title "Error!" \
+            --msgbox "You denied the dialog... Please unplug your phone and try again." 0 0
+      else
+        dialog --clear --title "Error!" \
+          --msgbox "You are too ugly.    else
+      if [ $(ideviceinfo | grep PasswordProtected | sed 's/PasswordProtected: //') = "true" ]; then
+        dialog --clear --title "Error!" \
+          --msgbox "Please unlock your iDevice!" 0 0
+      else
+        break
+      fi
+    fi
+  done
+
+  while true; do
+    if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: Pairing dialog response pending (-19)"; then
+      dialog --clear --title "Error!" \
+          --msgbox "Please press trust on the dialog!" 0 0
+    else
+      if ideviceinfo 2>&1 | grep -q "ERROR: Could not connect to lockdownd: User denied pairing (-18)"; then
+        dialog --clear --title "Error!" \
+            --msgbox "You denied the dialog... Please unplug your phone and try again." 0 0
+      else
+        dialog --clear --title "Error!" \
+          --msgbox "You are too ugly." 0 0
+        break
+      fi
+    fi
+  done
 fi
 
+clear 
+exit
