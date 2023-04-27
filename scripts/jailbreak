@@ -30,11 +30,14 @@ else
         dialog --clear --title "Error!" \
             --msgbox "You denied the dialog... Please unplug your phone and try again." 0 0
       else
-        dialog --clear --title "Error!" \
-          --msgbox "You are too ugly."
+        dialog --clear --title "..." \
+          --msgbox "Phone passed all checks, proceeding..."
+        
       fi
     fi
   done
+
 fi
+
 clear 
 exit

@@ -68,14 +68,17 @@ mkdir -pv work/{rootfs,iso/boot/grub}
 cd work
 
 # Fetch ROOTFS
-curl -sL "$ROOTFS" | tar -xzC rootfs
+cd rootfs
+wget -O rootfs.tar.gz "$ROOTFS"
+tar -xzf rootfs.tar.gz
+rm -rf rootfs.tar.gz
+cd ..
 mount -vo bind /dev rootfs/dev
 mount -vt sysfs sysfs rootfs/sys
 mount -vt proc proc rootfs/proc
 cp /etc/resolv.conf rootfs/etc
-cp ../packages rootfs/root
 cat << ! > rootfs/etc/apk/repositories
-http://dl-cdn.alpinelinux.org/alpine/v3.12/main
+http://dl-cdn.alpinelinux.org/alpine/v3.17/main
 http://dl-cdn.alpinelinux.org/alpine/edge/community
 http://dl-cdn.alpinelinux.org/alpine/edge/testing
 !
@@ -84,14 +87,13 @@ sleep 2
 
 wget https://static.palera.in/deps/gaster-Linux.zip
 unzip gaster-Linux.zip
-cp gaster ../scripts
+cp gaster rootfs/bin
 
 # ROOTFS packages & services
 cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin /bin/sh
 apk update
 apk upgrade
-cat /rootfs/root/packages
-apk add $(cat /rootfs/root/packages)
+apk add bash openrc alpine-conf busybox alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2 dialog linux-firmware-brcm linux-firmware-mwl8k linux-firmware-atmel linux-firmware-ath11k linux-firmware-ath10k linux-firmware-ath9k_htc linux-firmware-acenic linux-firmware-3com libimobiledevice
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc
 rc-update add hwdrivers
