@@ -93,7 +93,7 @@ cp gaster rootfs/bin
 cat << ! | chroot rootfs /usr/bin/env PATH=/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin /bin/sh
 apk update
 apk upgrade
-apk add bash openrc alpine-conf busybox alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2 dialog linux-firmware-brcm linux-firmware-mwl8k linux-firmware-atmel linux-firmware-ath11k linux-firmware-ath10k linux-firmware-ath9k_htc linux-firmware-acenic linux-firmware-3com libimobiledevice
+apk add bash openrc alpine-conf busybox alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2 dialog linux-firmware-brcm linux-firmware-mwl8k linux-firmware-atmel linux-firmware-ath11k linux-firmware-ath10k linux-firmware-ath9k_htc linux-firmware-acenic linux-firmware-3com libimobiledevice-progs libimobiledevice-dev
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc
 rc-update add hwdrivers

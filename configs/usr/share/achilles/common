@@ -1,0 +1,3 @@
+#!/bin/bash
+export colours=""
+export dialog=dialog
