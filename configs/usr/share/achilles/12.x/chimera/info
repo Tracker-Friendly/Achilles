@@ -1,0 +1,6 @@
+semi-untethered
+open-source
+$(curl -L -s -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/Odyssey-Team/Odyssey/releases/latest | grep browser_download_url | awk -F'"' '{print $4}')
+0
+1
+alpha
