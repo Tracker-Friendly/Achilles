@@ -95,7 +95,7 @@ apk update
 apk upgrade
 apk add bash openrc alpine-conf busybox alpine-base usbmuxd ncurses udev openssh-client sshpass newt wireless-tools iwd iputils iproute2 dialog libimobiledevice-progs libimobiledevice-dev 
 # Drivers
-apk add linux-firmware-ath10k linux-firmware-ath11k linux-firmware-ath6k linux-firmware-ath9k_htc linux-firmware-brcm linux-firmware-ralink linux-firmware-rtl8192e linux-firmware-rtl_nic linux-firmware-rtlwifi linux-firmware-rtw88 linux-firmware-rtw89
+apk add linux-firmware-ath10k linux-firmware-ath11k linux-firmware-ath6k linux-firmware-ath9k_htc linux-firmware-brcm linux-firmware-rtl8192e linux-firmware-rtl_nic linux-firmware-rtlwifi linux-firmware-rtw88 linux-firmware-rtw89
 apk add --no-scripts linux-lts linux-firmware-none
 rc-update add bootmisc
 rc-update add hwdrivers
@@ -115,7 +115,6 @@ chmod -v 755 rootfs/usr/bin/*
 ln -sv sbin/init rootfs/init
 ln -sv ../../etc/terminfo rootfs/usr/share/terminfo # fix ncurses
 cp -vr ../configs rootfs/
-rm /root/packages
 
 # Boot config
 cp -av rootfs/boot/vmlinuz-lts iso/boot/vmlinuz
