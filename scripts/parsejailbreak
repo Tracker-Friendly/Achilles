@@ -1,0 +1,33 @@
+mode="$1"
+jailbreak="$4"
+version="$2"
+versionshort=$(echo "$version" | cut -d "." -f 1)
+
+if [ "$3" = "dev" ]; then
+  configpath="../configs/usr/share/achilles/"
+else
+  configpath="/usr/share/achilles"
+fi
+
+echo $mode
+echo $jailbreak
+echo $version
+echo $versionshort
+
+if [ "$mode" = "$(echo e)" ]; then
+  cd $configpath
+  cd "$versionshort"
+  export output=$(cat jailbreaks)
+  echo $output
+  exit
+fi
+
+cd "$configpath"
+ls
+cd "$versionshort"
+ls
+cd "$jailbreak"
+ls
+cat version
+
+exit
