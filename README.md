@@ -30,7 +30,7 @@
 # Building Achilles
 To change the version of Achilles, either change `version` file, or manually specify it with `./build.sh`.
 
-Execute these commands on a Debian-based system (Github Actions support Arch Linux eta).
+Execute these commands on a Debian (apt) or Arch (pacman) based system.
 
 ```sh
 git clone https://github.com/Tracker-Friendly/Achilles.git
@@ -43,7 +43,7 @@ Any contribution is always welcome :3
 
 # Credits
 ## Achilles
-- Tracker-Friendly for working on Achilles (he's lonley)
+- Tracker-Friendly for working on Achilles (he's sad)
 ## Checkn1x
 - Asineth for [checkn1x](https://github.com/asineth0/checkn1x)
 - The checkra1n team for [checkra1n](https://checkra.in)
